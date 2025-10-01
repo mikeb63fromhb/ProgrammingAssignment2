@@ -1,3 +1,10 @@
+## These functions work together to handle matrices more efficiently.
+## The first function creates a special matrix object that can store
+## its value and remember its inverse. The second function calculates
+## the inverse or retrieves the saved version if already available.
+## This caching process saves time because it avoids repeating the
+## same heavy calculation when the matrix has not changed.
+
 makeCacheMatrix <- function(x = matrix()) {
   inv <- NULL
   set <- function(y) {
@@ -11,6 +18,12 @@ makeCacheMatrix <- function(x = matrix()) {
        setInverse = setInverse,
        getInverse = getInverse)
 }
+
+## This function checks if the inverse of the matrix has already
+## been calculated. If so, it quickly returns the saved result
+## from memory. If not, it computes the inverse using the solve
+## function, saves it for later use, and then returns it.
+## This avoids wasting time repeating the same calculation.
 
 cacheSolve <- function(x, ...) {
   inv <- x$getInverse()
